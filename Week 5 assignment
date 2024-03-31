@@ -1,0 +1,49 @@
+class Student {
+  final String name;
+  final int age;
+  final int gradeLevel;
+
+  Student(this.name, this.age, this.gradeLevel);
+
+  // Method to print student information
+  void printInfo() {
+    print("Student Name: $name");
+    print("Age: $age");
+    print("Grade Level: $gradeLevel");
+  }
+}
+
+class Teacher {
+  final String name;
+  final int age;
+  final String subject;
+
+  Teacher(this.name, this.age, this.subject);
+
+  // Method to print teacher information
+  void printInfo() {
+    print("Teacher Name: $name");
+    print("Age: $age");
+    print("Subject: $subject");
+  }
+}
+
+class School {
+  void run() {
+    // Create student and teacher objects
+    final student = Student("John Doe", 16, 11);
+    final teacher = Teacher("Jane Smith", 40, "Math");
+
+    // Print student information
+    student.printInfo();
+    print("\n"); // Add a newline for better formatting
+
+    // Print teacher information
+    teacher.printInfo();
+  }
+}
+
+void main() {
+  final school = School();
+  school.run();
+}

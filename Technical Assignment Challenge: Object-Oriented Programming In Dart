@@ -1,0 +1,87 @@
+// Interface for shapes
+abstract class Shape {
+  double get area;
+}
+
+// Class representing a circle implementing the Shape interface
+class Circle implements Shape {
+  final double radius;
+
+  Circle(this.radius);
+
+  @override
+  double get area => pi * radius * radius;
+}
+
+// Class representing a rectangle inheriting from Shape
+class Rectangle extends Shape {
+  final double length;
+  final double width;
+
+  Rectangle(this.length, this.width);
+
+  @override
+  double get area => length * width;
+
+  // Override the toString method to provide a more descriptive representation
+  @override
+  String toString() => "Rectangle(length: $length, width: $width)";
+}
+
+// Class to read data from a file
+class FileReader {
+  static Future<List<String>> readLines(String filePath) async {
+    try {
+      final file = File(filePath);
+      return await file.readAsLines();
+    } catch (e) {
+      print("Error reading file: $e");
+      return [];
+    }
+  }
+}
+
+// Function to calculate the total area of shapes in a list
+double calculateTotalArea(List<Shape> shapes) {
+  double totalArea = 0;
+  for (var shape in shapes) {
+    totalArea += shape.area;
+  }
+  return totalArea;
+}
+
+void main() async {
+  // Read data from a file (replace "data.txt" with your actual file path)
+  final lines = await FileReader.readLines("data.txt");
+
+  // List to store shapes
+  final shapes = <Shape>[];
+
+  // Process data from the file and create shapes
+  for (var line in lines) {
+    final data = line.split(',');
+    if (data.length == 2) {
+      final double value1 = double.parse(data[0]);
+      final double value2 = double.parse(data[1]);
+      if (data[0] == "circle") {
+        shapes.add(Circle(value1));
+      } else if (data[0] == "rectangle") {
+        shapes.add(Rectangle(value1, value2));
+      } else {
+        print("Invalid shape data in file: $line");
+      }
+    } else {
+      print("Invalid data format in file: $line");
+    }
+  }
+
+  // Calculate total area
+  final totalArea = calculateTotalArea(shapes);
+
+  // Print results
+  print("Total area of shapes: $totalArea");
+  print("List of shapes:");
+  for (var shape in shapes) {
+    print(shape);
+  }
+}
